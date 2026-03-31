@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Professional Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #0a0a0a; color: #e2e8f0; line-height: 1.6; 
+            overflow-x: hidden;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        nav { 
+            position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid #333; 
+        }
+        .nav-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-link { color: #e2e8f0; text-decoration: none; font-weight: 500; position: relative; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #10b981, #34d399); transition: width 0.3s; }
+        .nav-link:hover::after { width: 100%; }
+        .hero { 
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(ellipse at center, rgba(16,185,129,0.1) 0%, transparent 70%); 
+        }
+        .photo-frame { 
+            width: 250px; height: 250px; border-radius: 50%; position: relative; overflow: hidden; border: 3px solid #333; box-shadow: 0 0 50px rgba(16,185,129,0.3); animation: rotateFrame 20s linear infinite; 
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes rotateFrame { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, #10b981 0%, #34d399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -2px; }
+        .hero p { font-size: 1.5rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; }
+        .cta { background: linear-gradient(135deg, #10b981, #34d399); color: #0a0a0a; padding: 1rem 3rem; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(16,185,129,0.4); transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); position: relative; overflow: hidden; }
+        .cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.6s; }
+        .cta:hover::before { left: 100%; }
+        .cta:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 40px rgba(16,185,129,0.6); }
+        section { padding: 8rem 0; }
+        .section-title { font-size: 3.5rem; font-weight: 700; text-align: center; margin-bottom: 4rem; opacity: 0.1; position: relative; }
+        .section-title::after { content: ''; position: absolute; bottom: -1rem; left: 50%; transform: translateX(-50%); width: 100px; height: 3px; background: linear-gradient(90deg, #10b981, #34d399); }
+        #about { background: linear-gradient(180deg, #0a0a0a 0%, #111 100%); }
+        #about p { max-width: 800px; margin: 0 auto; font-size: 1.25rem; text-align: center; opacity: 0.9; }
+        #skills { background: #111; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .skill-card { text-align: center; padding: 3rem 2rem; border: 1px solid #333; border-radius: 20px; transition: all 0.4s; position: relative; overflow: hidden; }
+        .skill-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent 0deg, rgba(16,185,129,0.1) 270deg, transparent 360deg); animation: spin 3s linear infinite paused; transition: animation-play-state 0.3s; }
+        .skill-card:hover::before { animation-play-state: running; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .skill-card:hover { transform: translateY(-10px); border-color: #10b981; box-shadow: 0 20px 40px rgba(16,185,129,0.2); }
+        .skill-icon { font-size: 4rem; color: #10b981; margin-bottom: 1rem; }
+        .skill-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        #projects { background: #0a0a0a; }
+        .projects-masonry { 
+            column-count: 1; column-gap: 2rem; 
+            @media (min-width: 768px) { column-count: 2; }
+            @media (min-width: 1200px) { column-count: 3; }
+        }
+        .project-card { 
+            background: #1a1a1a; border-radius: 20px; overflow: hidden; margin-bottom: 2rem; break-inside: avoid; transition: all 0.4s; position: relative; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .project-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 30px 60px rgba(16,185,129,0.3); }
+        .project-img { width: 100%; height: 200px; object-fit: cover; }
+        .project-info { padding: 1.5rem; }
+        .project-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .project-desc { opacity: 0.8; margin-bottom: 1rem; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+        .tech-tag { background: #333; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
+        .project-links { display: flex; gap: 1rem; }
+        .link-btn { color: #10b981; text-decoration: none; font-weight: 500; padding: 0.5rem 1rem; border: 1px solid #10b981; border-radius: 25px; transition: all 0.3s; }
+        .link-btn:hover { background: #10b981; color: #0a0a0a; }
+        footer { background: #000; padding: 4rem 0 2rem; text-align: center; border-top: 1px solid #333; }
+        .footer-content { max-width: 600px; margin: 0 auto; }
+        .socials { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
+        .social { font-size: 1.5rem; color: #666; transition: color 0.3s; }
+        .social:hover { color: #10b981; transform: translateY(-3px) scale(1.2); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        section { opacity: 0; animation: fadeInUp 1s forwards; }
+        .hero h1, .hero p { animation: fadeInUp 1s ease forwards; }
+        .hero h1 { animation-delay: 0.5s; }
+        .hero p { animation-delay: 1s; }
+        .cta { animation-delay: 1.5s; }
+        @media (max-width: 768px) { .nav-links { display: none; } .container { padding: 0 1rem; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="photo-frame">
+                <img src="image/p1.jpeg" alt="Profile">
+            </div>
+            <h1>Vignesh L</h1>
+            <p>Creative Full-Stack Developer crafting innovative digital experiences</p>
+            <a href="#" class="cta">View My Work <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About</h2>
+            <p>I am Vignesh, a motivated individual with a strong interest in programming. I have knowledge of C and Python programming languages and possess good problem-solving and logical thinking skills. I am eager to learn new technologies and apply my knowledge to real-world applications..</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                    <h3>Frontend</h3>
+                    <p>React, Vue, HTML5, CSS3, Tailwind</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                    <h3>Backend</h3>
+                    <p>Node.js, Express, Python, Django</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fas fa-database"></i></div>
+                    <h3>Database</h3>
+                    <p>PostgreSQL, MongoDB, Redis</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
+                    <h3>Tools</h3>
+                    <p>Git, Docker, CI/CD, AWS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-masonry">
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop" alt="E-commerce" class="project-img">
+                    <div class="project-info">
+                        <h3>E-Commerce Platform</h3>
+                        <p>Full-stack shopping platform with Stripe payments, admin dashboard, and real-time inventory.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">Live</a>
+                            <a href="#" class="link-btn">Code</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" alt="Chat App" class="project-img">
+                    <div class="project-info">
+                        <h3>Real-time Chat App</h3>
+                        <p>Socket.io powered chat with rooms, file sharing, typing indicators, and message encryption.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Socket.io</span>
+                            <span class="tech-tag">MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">Live</a>
+                            <a href="#" class="link-btn">Code</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=250&fit=crop" alt="Portfolio" class="project-img">
+                    <div class="project-info">
+                        <h3>Portfolio 2024</h3>
+                        <p>This site! Minimal dark design with creative interactions, masonry layout, and smooth animations.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">CSS Grid</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="link-btn">Live</a>
+                            <a href="#" class="link-btn">Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>Let's Create Something Amazing</h3>
+                <p>lvignesh390@gmail.com | 6369566511</p>
+                <div class="socials">
+                    <a href="https://www.linkedin.com/in/vignesh-l-7874582a0/" class="social"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/lvignesh390-afk" class="social"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p>&copy; 2026 Vignesh l. Built with ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.querySelector('nav').style.background = window.scrollY > 50 ? 'rgba(10,10,10,0.98)' : 'rgba(10,10,10,0.95)';
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.3s';
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
+
